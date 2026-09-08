@@ -1,0 +1,11 @@
+{
+  "name": "@kalvi/outreach-cli",
+  "version": "1.0.1",
+  "private": true,
+  "type": "module",
+  "repository": { "type": "git", "url": "https://github.com/ErwanFx/kalvi-outreach-cli.git" },
+  "files": ["outreach.mjs", "client.mjs", "README.md"],
+  "bin": { "outreach": "outreach.mjs" },
+  "engines": { "node": ">=22" },
+  "scripts": { "test": "node --test *.test-node.mjs" }
+}
