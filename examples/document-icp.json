@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0",
+  "correlationId": "example-icp-001",
+  "idempotencyKey": "example-create-icp-001",
+  "kind": "icp",
+  "title": "ICP exemple : PME de rénovation",
+  "body": "## Entreprises ciblées\n\nPME de rénovation de 10 à 50 salariés.\n\n## Décideur\n\nDirigeant ou responsable commercial.\n\n## Critères à vérifier\n\n- Zone desservie\n- Capacité à traiter de nouveaux projets\n\n## Exclusions\n\nEntreprises hors zone.",
+  "icpIds": [],
+  "variants": [],
+  "expectedRevision": 0
+}

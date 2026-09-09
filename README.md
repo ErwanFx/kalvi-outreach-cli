@@ -2,18 +2,42 @@
 
 CLI autonome pour connecter un agent à un espace Outreach. Ce dépôt ne contient ni backend, ni interface, ni données client.
 
-Le CLI 1.0.1 appelle l’API HTTP v1. Il ne se connecte ni à Convex en administrateur, ni aux outils fournisseurs. Node.js 22 ou supérieur est requis. Aucun paquet tiers n’est nécessaire.
+Le CLI 1.0.2 appelle l’API HTTP v1. Il ne se connecte ni à Convex en administrateur, ni aux outils fournisseurs. Node.js 22 ou supérieur est requis. Aucun paquet tiers n’est nécessaire.
 
 ## Installation et mise à jour
 
 Depuis n’importe quel VPS avec Node.js 22+ et npm, sans compte GitHub ni accès au dépôt privé :
 
 ```bash
-npm install -g https://github.com/ErwanFx/kalvi-outreach-cli/archive/refs/tags/v1.0.1.tar.gz
+npm install -g https://github.com/ErwanFx/kalvi-outreach-cli/archive/refs/tags/v1.0.2.tar.gz
 outreach --help
 ```
 
 Le dépôt public est https://github.com/ErwanFx/kalvi-outreach-cli. Pour une mise à jour, choisir un nouveau tag publié et relancer l’installation. Le paquet n’est pas publié sur le registre npm : npm télécharge l’archive GitHub. Le code de la plateforme et son historique restent privés. Une clé API de l’espace reste nécessaire pour accéder aux données.
+
+## Documents Markdown
+
+Les documents passent par la commande générique `outreach api`. La clé doit avoir `read` pour les lectures et `documents` pour les écritures. Les anciennes clés ne gagnent pas automatiquement cette portée.
+
+```bash
+outreach api GET /api/v1/documents --query 'kind=icp&limit=20' --profile client
+outreach api PUT /api/v1/documents/new --file examples/document-icp.json --profile client
+outreach api PUT /api/v1/documents/new --file examples/document-sequence.json --profile client
+outreach api GET /api/v1/documents/DOCUMENT_ID --profile client
+outreach api GET /api/v1/documents/DOCUMENT_ID/versions --profile client
+```
+
+Ces exemples sont fictifs. Téléchargez-les depuis le dossier [examples](./examples) et adaptez-les avant envoi. Remplacez `DOCUMENT_ID` par le `publicId` retourné par l’API. Les listes utilisent un curseur ; transmettez le curseur retourné pour obtenir la suite.
+
+`--file` attend toujours du **JSON**, pas un fichier `.md` brut. Placez le texte Markdown dans `body` et, pour les séquences, dans `variants[].steps[].body`. Les objets des e-mails (`subject`) restent du texte simple. HTML brut et images externes ne sont pas rendus dans la plateforme.
+
+- ICP et Persona sont une seule catégorie : créez avec `kind: "icp"`. Conservez `persona` lors d’une modification d’un ancien document de ce type.
+- `strategy` utilise aussi un corps Markdown, avec `variants: []`.
+- Une séquence contient 1 à 6 variantes, chacune avec 1 à 5 étapes. `icpIds` peut relier plusieurs ICP du même espace ; aucun parent n’est obligatoire.
+- `expectedRevision: 0` crée un document. Pour modifier, utilisez son identifiant et sa révision actuelle. Chaque sauvegarde crée une nouvelle révision brouillon ; un conflit de révision retourne HTTP 409.
+- Chaque nouvelle opération reçoit sa propre `idempotencyKey` et un `correlationId`. Pour rejouer la même opération après une interruption, conservez exactement sa clé et son corps.
+
+Pour soumettre un document, envoyez `POST /api/v1/documents/DOCUMENT_ID/submit` avec un fichier JSON contenant `expectedRevision`, `schemaVersion: "1.0"`, `correlationId` et `idempotencyKey`. L’agent peut soumettre, mais pas approuver à la place du client. Le contrat complet de l’instance, incluant commentaires et limites, est disponible via `outreach docs --profile client`.
 
 ## Connexion et profils
 
@@ -90,4 +114,3 @@ stdout contient le résultat JSON, stderr une erreur JSON ; code de sortie 0 en 
 En cas de timeout après une écriture, son résultat est incertain : rejouer exactement le même corps avec la même idempotencyKey, jamais avec une nouvelle clé. L’agent conserve ses checkpoints après chaque page confirmée.
 
 Voir aussi le guide d’utilisation et la référence API accessibles depuis Documentation dans chaque espace.
-
