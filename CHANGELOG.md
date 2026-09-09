@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.0 (2026-09-09)
+
+- Lanceur avec mises à jour automatiques des releases stables compatibles, contrôle toutes les six heures après les commandes.
+- Installation isolée, vérification du paquet et démarrage avant activation atomique ; pas de modification des profils ou clés.
+- Verrou anti-concurrence, suspension par `OUTREACH_AUTO_UPDATE=0`, version fixée par `OUTREACH_CLI_VERSION`.
+- Guide d’exploitation et de récupération. Une installation initiale de cette version est nécessaire sur les VPS.
+
 ## 1.0.2 (2026-09-09)
 
 - Documentation des documents Markdown : ICP/Persona, stratégies et séquences à variantes.

@@ -2,18 +2,48 @@
 
 CLI autonome pour connecter un agent à un espace Outreach. Ce dépôt ne contient ni backend, ni interface, ni données client.
 
-Le CLI 1.0.2 appelle l’API HTTP v1. Il ne se connecte ni à Convex en administrateur, ni aux outils fournisseurs. Node.js 22 ou supérieur est requis. Aucun paquet tiers n’est nécessaire.
+Le CLI 1.1.0 appelle l’API HTTP v1. Il ne se connecte ni à Convex en administrateur, ni aux outils fournisseurs. Node.js 22 ou supérieur est requis. Aucun paquet tiers n’est nécessaire.
 
 ## Installation et mise à jour
 
 Depuis n’importe quel VPS avec Node.js 22+ et npm, sans compte GitHub ni accès au dépôt privé :
 
 ```bash
-npm install -g https://github.com/ErwanFx/kalvi-outreach-cli/archive/refs/tags/v1.0.2.tar.gz
+npm install -g https://github.com/ErwanFx/kalvi-outreach-cli/archive/refs/tags/v1.1.0.tar.gz
 outreach --help
 ```
 
 Le dépôt public est https://github.com/ErwanFx/kalvi-outreach-cli. Pour une mise à jour, choisir un nouveau tag publié et relancer l’installation. Le paquet n’est pas publié sur le registre npm : npm télécharge l’archive GitHub. Le code de la plateforme et son historique restent privés. Une clé API de l’espace reste nécessaire pour accéder aux données.
+
+## Mise à jour automatique
+
+Les versions 1.0.x ne disposent pas de ce mécanisme. Installer manuellement le tag 1.1.0 une seule fois sur chaque VPS pour l’activer.
+
+À partir de 1.1.0, chaque utilisation lance une maintenance silencieuse **après la commande métier**. Le contrôle GitHub est limité à une fois toutes les six heures, y compris après un échec. Aucun cron n’est ajouté. La commande suivante utilise la version installée si sa préparation est terminée.
+
+Seules les releases stables du dépôt officiel `ErwanFx/kalvi-outreach-cli`, plus récentes et du même numéro majeur, sont admissibles. Une version 2.x nécessite une migration manuelle. Le canal consulté est la dernière release GitHub : si elle appartient à un autre numéro majeur, aucune mise à jour automatique n’est appliquée.
+
+Le paquet est installé sans scripts npm dans un dossier séparé, avec vérification de la compatibilité Node, de son nom, de sa version et du démarrage `--help`. Le pointeur actif est remplacé atomiquement seulement après succès. Ce contrôle de démarrage ne garantit pas l’absence de toute régression métier. Le dépôt GitHub officiel reste une source de code de confiance ; ce mécanisme n’ajoute pas de signature indépendante.
+
+- Les profils et clés restent dans leur emplacement habituel et ne sont pas transmis à la maintenance.
+- Les mises à jour sont propres à l’utilisateur système, dans `~/.cache/kalvi-outreach/updates`, sans `sudo` et sans modifier l’installation globale.
+- Les commandes conservent leurs sorties et codes de retour. Une panne réseau ou d’installation n’empêche pas leur exécution.
+- Les anciennes versions sont conservées. `npm list -g` indique la version du lanceur global ; `outreach --help` indique celle réellement exécutée.
+
+```bash
+# Suspendre les téléchargements automatiques (garde la version active).
+export OUTREACH_AUTO_UPDATE=0
+
+# Fixer une version déjà installée, par exemple le lanceur 1.1.0.
+export OUTREACH_CLI_VERSION=1.1.0
+
+# Revenir aux mises à jour automatiques.
+unset OUTREACH_CLI_VERSION OUTREACH_AUTO_UPDATE
+```
+
+Une version fixée mais absente renvoie `PINNED_VERSION_NOT_INSTALLED`, sans télécharger de code ni exécuter une autre version silencieusement. Pour rendre ces choix persistants, définir les variables dans l’environnement du service de l’agent.
+
+Le fichier `~/.cache/kalvi-outreach/updates/check.json` indique le dernier contrôle (`updated`, `current-or-incompatible`, `failed-kept-current`). Un verrou empêche les installations concurrentes. Après une interruption brutale du processus, un verrou peut rester : vérifier qu’aucun processus `update.mjs` n’est actif avant de retirer le répertoire vide `lock` avec `rmdir`. Les dossiers `stage-*` d’une installation échouée peuvent être supprimés manuellement après le même contrôle. Ne pas supprimer une version utilisée par une commande en cours.
 
 ## Documents Markdown
 
