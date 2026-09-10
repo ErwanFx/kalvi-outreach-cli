@@ -20,7 +20,7 @@ export async function request(config, method, path, body, raw = false) {
 
 export async function handshake(config) {
   const document = await request(config, 'GET', '/api/v1/openapi.json', undefined, true);
-  const result = await request(config, 'POST', '/api/v1/agent/handshake', { agentName: 'outreach-cli', agentVersion: '1.1.0', contractVersion: 'v1' });
+  const result = await request(config, 'POST', '/api/v1/agent/handshake', { agentName: 'outreach-cli', agentVersion: '1.1.1', contractVersion: 'v1' });
   if (result.contractVersion !== 'v1' || result.openApiFingerprint !== `sha256:${createHash('sha256').update(document).digest('hex')}`) throw new Error('CONTRACT_MISMATCH');
   if (config.workspaceId && result.instance.id !== config.workspaceId) throw new Error('WORKSPACE_MISMATCH');
   return result;

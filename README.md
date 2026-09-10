@@ -1,15 +1,23 @@
 # Outreach CLI
 
+## Documents : format et rendu automatique
+
+Tous les imports utilisent le même design dans Outreach. Fournir du Markdown GFM (titres `##`, paragraphes espacés, listes et tableaux simples), jamais du HTML/CSS. Pour ICP et stratégie, commencer par « En bref », puis des sections explicites ; le lecteur construit le sommaire. Les titres sont recommandés, pas imposés aux documents existants.
+
+Pour les séquences, `body` contient seulement le contexte. Placer les emails exclusivement dans `variants[].steps[]` : objet en texte simple, corps Markdown, délai relatif `delayDays`. Ne pas recopier les emails dans un tableau Markdown. Le lecteur compare les variantes par étape et calcule les jours cumulés automatiquement. Les contenus existants ne sont pas modifiés.
+
+Les exemples dans `examples/` sont des données fictives à adapter. Lire la révision avant toute mise à jour et conserver l'idempotence ; aucune création de document ne déclenche un envoi. `outreach docs` expose aussi le contrat `x-document-authoring` de l'instance.
+
 CLI autonome pour connecter un agent à un espace Outreach. Ce dépôt ne contient ni backend, ni interface, ni données client.
 
-Le CLI 1.1.0 appelle l’API HTTP v1. Il ne se connecte ni à Convex en administrateur, ni aux outils fournisseurs. Node.js 22 ou supérieur est requis. Aucun paquet tiers n’est nécessaire.
+Le CLI 1.1.1 appelle l’API HTTP v1. Il ne se connecte ni à Convex en administrateur, ni aux outils fournisseurs. Node.js 22 ou supérieur est requis. Aucun paquet tiers n’est nécessaire.
 
 ## Installation et mise à jour
 
 Depuis n’importe quel VPS avec Node.js 22+ et npm, sans compte GitHub ni accès au dépôt privé :
 
 ```bash
-npm install -g https://github.com/ErwanFx/kalvi-outreach-cli/archive/refs/tags/v1.1.0.tar.gz
+npm install -g https://github.com/ErwanFx/kalvi-outreach-cli/archive/refs/tags/v1.1.1.tar.gz
 outreach --help
 ```
 

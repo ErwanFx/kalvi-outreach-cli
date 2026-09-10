@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0",
+  "correlationId": "example-strategy-001",
+  "idempotencyKey": "example-create-strategy-001",
+  "kind": "strategy",
+  "title": "Stratégie exemple à adapter",
+  "body": "## En bref\n\nExemple fictif à compléter avec le client.\n\n## Objectif\n\nÀ confirmer.\n\n## Cibles\n\nLier les ICP validés.\n\n## Proposition de valeur\n\nÀ préciser à partir de l'offre réelle.\n\n## Canaux et étapes\n\nÀ confirmer.\n\n## Mesure des résultats\n\nDéfinir les indicateurs et leur période.\n\n## Points à confirmer\n\n- Volumes\n- Calendrier\n- Responsables",
+  "icpIds": [],
+  "variants": [],
+  "expectedRevision": 0
+}

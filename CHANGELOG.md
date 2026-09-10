@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.1 (2026-09-10)
+
+- Contrat de présentation des documents : Markdown pour toutes les catégories, emails structurés sans duplication, rendu unifié dans la plateforme.
+- Exemple stratégie ajouté. Aucun changement des clés, profils ou permissions.
+
 ## 1.1.0 (2026-09-09)
 
 - Lanceur avec mises à jour automatiques des releases stables compatibles, contrôle toutes les six heures après les commandes.
