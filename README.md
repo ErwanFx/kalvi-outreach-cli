@@ -2,6 +2,12 @@
 
 ## Documents : format et rendu automatique
 
+### Lire les variantes retenues
+
+`outreach api GET /api/v1/documents/DOCUMENT_ID --profile client` retourne aussi `current.stepSelections` et `current.selectionVersion`. Chaque choix est propre à un e-mail : `stepIndex` (base zéro), `variantId`, `stepId`, `selectedAt`, `selectedBy`. Ces champs sont en lecture seule et ne doivent jamais être inclus dans un PUT.
+
+Assembler les choix dans l'ordre des étapes en retrouvant chaque mail dans `variants` ; vérifier son `stepId`, puis additionner les `delayDays` des mails retenus. Une séquence peut combiner A, C et B. Ne pas supposer que choisir A pour le premier mail retient tous les mails A. Ne pas compléter les choix manquants à la place du client. Une nouvelle révision repart sans choix ; une version validée fige les choix. Sélectionner n'autorise aucun envoi. La commande générique existante suffit, sans nouvelle installation.
+
 Tous les imports utilisent le même design dans Outreach. Fournir du Markdown GFM (titres `##`, paragraphes espacés, listes et tableaux simples), jamais du HTML/CSS. Pour ICP et stratégie, commencer par « En bref », puis des sections explicites ; le lecteur construit le sommaire. Les titres sont recommandés, pas imposés aux documents existants.
 
 Pour les séquences, `body` contient seulement le contexte. Placer les emails exclusivement dans `variants[].steps[]` : objet en texte simple, corps Markdown, délai relatif `delayDays`. Ne pas recopier les emails dans un tableau Markdown. Le lecteur compare les variantes par étape et calcule les jours cumulés automatiquement. Les contenus existants ne sont pas modifiés.
