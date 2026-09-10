@@ -6,7 +6,7 @@ import { parseArgs } from 'node:util';
 import { randomUUID } from 'node:crypto';
 import { request, validateOrigin, handshake } from './client.mjs';
 
-const help = `Outreach CLI 1.1.1 (Node 22+)
+const help = `Outreach CLI 1.1.2 (Node 22+)
 outreach login --url https://client.convex.site --profile client
 outreach whoami --profile client
 outreach profiles

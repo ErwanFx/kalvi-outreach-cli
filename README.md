@@ -16,14 +16,14 @@ Les exemples dans `examples/` sont des données fictives à adapter. Lire la ré
 
 CLI autonome pour connecter un agent à un espace Outreach. Ce dépôt ne contient ni backend, ni interface, ni données client.
 
-Le CLI 1.1.1 appelle l’API HTTP v1. Il ne se connecte ni à Convex en administrateur, ni aux outils fournisseurs. Node.js 22 ou supérieur est requis. Aucun paquet tiers n’est nécessaire.
+Le CLI 1.1.2 appelle l’API HTTP v1. Il ne se connecte ni à Convex en administrateur, ni aux outils fournisseurs. Node.js 22 ou supérieur est requis. Aucun paquet tiers n’est nécessaire.
 
 ## Installation et mise à jour
 
 Depuis n’importe quel VPS avec Node.js 22+ et npm, sans compte GitHub ni accès au dépôt privé :
 
 ```bash
-npm install -g https://github.com/ErwanFx/kalvi-outreach-cli/archive/refs/tags/v1.1.1.tar.gz
+npm install -g https://github.com/ErwanFx/kalvi-outreach-cli/archive/refs/tags/v1.1.2.tar.gz
 outreach --help
 ```
 

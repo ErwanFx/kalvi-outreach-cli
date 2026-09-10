@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.2 (2026-09-10)
+
+- Skill public `hermes-outreach` avec routine quotidienne, KPI et intégration ColdIQ contrôlée.
+- Documentation de `intent.detected`, du mode de sourcing et des quatre opérations ColdIQ exposées par la plateforme.
+- Aucun profil, secret ou cron modifié automatiquement.
+
 ## 1.1.1 (2026-09-10)
 
 - Contrat de présentation des documents : Markdown pour toutes les catégories, emails structurés sans duplication, rendu unifié dans la plateforme.
