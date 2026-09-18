@@ -1,0 +1,65 @@
+{
+  "version": "v1",
+  "requestMetadata": {
+    "schemaVersion": "1.0",
+    "correlationId": { "minimum": 1, "maximum": 128 },
+    "idempotencyKey": { "minimum": 1, "maximum": 128 },
+    "openApiSchemas": ["DocumentSave", "DocumentSubmit", "DocumentCommentWrite", "WriteMetadata", "ProspectPutRequest", "ProspectPatchRequest", "CampaignPutRequest", "CampaignPatchRequest", "LifecycleRequest"]
+  },
+  "apiKey": {
+    "bearerPrefix": "opk_",
+    "prefixMinimum": 3,
+    "prefixMaximum": 64,
+    "secretMinimum": 8,
+    "secretMaximum": 256
+  },
+  "errors": {
+    "UNAUTHORIZED": { "status": 401, "message": "Clé API invalide ou révoquée" },
+    "FORBIDDEN_SCOPE": { "status": 403, "message": "Cette clé API n'a pas la portée requise" },
+    "PAYLOAD_TOO_LARGE": { "status": 413, "message": "Le corps de la requête dépasse 8 Mio" },
+    "CASES_PAYLOAD_TOO_LARGE": { "status": 413, "message": "Le corps de la requête dépasse 256 Kio" },
+    "INVALID_PAYLOAD": { "status": 400, "message": "La requête est invalide" },
+    "NOT_FOUND": { "status": 404, "message": "La route demandée est introuvable" },
+    "BATCH_NOT_FOUND": { "status": 404, "message": "Le batch demandé est introuvable" },
+    "PROSPECT_NOT_FOUND": { "status": 404, "message": "Le prospect demandé est introuvable" },
+    "CAMPAIGN_NOT_FOUND": { "status": 404, "message": "La campagne demandée est introuvable" },
+    "RESOURCE_NOT_FOUND": { "status": 404, "message": "La ressource demandée est introuvable" },
+    "IDEMPOTENCY_CONFLICT": { "status": 409, "message": "La clé d'idempotence est déjà utilisée" },
+    "EXTERNAL_VERSION_CONFLICT": { "status": 409, "message": "Cette version externe existe déjà avec un autre contenu" },
+    "EXTERNAL_ID_CONFLICT": { "status": 409, "message": "Cet identifiant externe existe plusieurs fois dans l'organisation" },
+    "SCORE_EVENT_KEY_CONFLICT": { "status": 409, "message": "Cette clé d'événement de scoring existe déjà avec un autre contenu" },
+    "IMPORT_IN_PROGRESS": { "status": 409, "message": "Un import est déjà en cours pour ce batch" },
+    "IMPORT_RUN_ABANDONED": { "status": 409, "message": "Cet import a été abandonné et ne peut pas être repris" },
+    "INVALID_BATCH_STATE": { "status": 409, "message": "L'état du batch interdit cette opération" },
+    "CAMPAIGN_MEMBERSHIP_LIMIT": { "status": 409, "message": "La campagne dépasse la limite de membres modifiables par appel" },
+    "SYNC_REQUEST_NOT_FOUND": { "status": 404, "message": "La demande de synchronisation est introuvable" },
+    "SYNC_REQUEST_NOT_OWNED": { "status": 403, "message": "Cette demande appartient à une autre clé" },
+    "SYNC_CLAIM_EXPIRED": { "status": 409, "message": "Le bail de cette synchronisation a expiré" },
+    "INVALID_SYNC_REQUEST_STATE": { "status": 409, "message": "L'état de la synchronisation interdit cette opération" },
+    "UNSUPPORTED_CONTRACT_VERSION": { "status": 400, "message": "Cette version du contrat agent n'est pas prise en charge" },
+    "INVALID_DOCUMENT": { "status": 400, "message": "Le document est invalide" },
+    "INVALID_ICP_LINKS": { "status": 400, "message": "Les liens ICP sont invalides" },
+    "REVISION_CONFLICT": { "status": 409, "message": "La révision attendue n'est plus courante" },
+    "IDENTITY_CONFLICT": { "status": 409, "message": "Cette identité appartient déjà à un autre dossier ou contact" },
+    "GOAL_CONFLICT": { "status": 409, "message": "La période ou la révision de l'objectif est en conflit" },
+    "ATTRIBUTE_SCHEMA_INVALID": { "status": 422, "message": "Les attributs ne correspondent pas à la version du schéma" },
+    "KIND_IMMUTABLE": { "status": 409, "message": "Le type d'un document ne peut pas changer" },
+    "INVALID_STATUS": { "status": 409, "message": "Le statut du document interdit cette opération" },
+    "PROVIDER_NOT_CONNECTED": { "status": 409, "message": "ColdIQ n’est pas connecté à cet espace" },
+    "PROVIDER_UNAVAILABLE": { "status": 502, "message": "ColdIQ est momentanément indisponible" },
+    "PROVIDER_RESPONSE_TOO_LARGE": { "status": 502, "message": "La réponse ColdIQ dépasse la limite autorisée" },
+    "PROVIDER_PAYLOAD_TOO_LARGE": { "status": 413, "message": "La requête fournisseur dépasse la limite autorisée" },
+    "SUMMARY_GENERATION_FAILED": { "status": 500, "message": "La génération du résumé a échoué" },
+    "PRIVACY_ERASURE_REJECTED": { "status": 403, "message": "La demande d’effacement est refusée ou n’est plus valide" },
+    "PRIVACY_ERASURE_FAILED": { "status": 409, "message": "L’effacement n’a pas pu être finalisé et peut être repris" },
+    "PRIVACY_RESTORE_NOT_READY": { "status": 503, "message": "La restauration est en maintenance jusqu’à la reprise des effacements" },
+    "INTERNAL_ERROR": { "status": 500, "message": "Une erreur interne est survenue" }
+  },
+  "fixtures": {
+    "requestMetadata": {
+      "schemaVersion": "1.0",
+      "correlationId": "corr-1",
+      "idempotencyKey": "write-1"
+    }
+  }
+}

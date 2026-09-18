@@ -1,0 +1,3984 @@
+{
+  "schemaVersion": "1",
+  "contractVersion": "v1",
+  "cliVersion": "1.2.0",
+  "errorSemantics": {
+    "UNAUTHORIZED": {
+      "status": 401,
+      "message": "Clé API invalide ou révoquée"
+    },
+    "FORBIDDEN_SCOPE": {
+      "status": 403,
+      "message": "Cette clé API n'a pas la portée requise"
+    },
+    "PAYLOAD_TOO_LARGE": {
+      "status": 413,
+      "message": "Le corps de la requête dépasse 8 Mio"
+    },
+    "CASES_PAYLOAD_TOO_LARGE": {
+      "status": 413,
+      "message": "Le corps de la requête dépasse 256 Kio"
+    },
+    "INVALID_PAYLOAD": {
+      "status": 400,
+      "message": "La requête est invalide"
+    },
+    "NOT_FOUND": {
+      "status": 404,
+      "message": "La route demandée est introuvable"
+    },
+    "BATCH_NOT_FOUND": {
+      "status": 404,
+      "message": "Le batch demandé est introuvable"
+    },
+    "PROSPECT_NOT_FOUND": {
+      "status": 404,
+      "message": "Le prospect demandé est introuvable"
+    },
+    "CAMPAIGN_NOT_FOUND": {
+      "status": 404,
+      "message": "La campagne demandée est introuvable"
+    },
+    "RESOURCE_NOT_FOUND": {
+      "status": 404,
+      "message": "La ressource demandée est introuvable"
+    },
+    "IDEMPOTENCY_CONFLICT": {
+      "status": 409,
+      "message": "La clé d'idempotence est déjà utilisée"
+    },
+    "EXTERNAL_VERSION_CONFLICT": {
+      "status": 409,
+      "message": "Cette version externe existe déjà avec un autre contenu"
+    },
+    "EXTERNAL_ID_CONFLICT": {
+      "status": 409,
+      "message": "Cet identifiant externe existe plusieurs fois dans l'organisation"
+    },
+    "SCORE_EVENT_KEY_CONFLICT": {
+      "status": 409,
+      "message": "Cette clé d'événement de scoring existe déjà avec un autre contenu"
+    },
+    "IMPORT_IN_PROGRESS": {
+      "status": 409,
+      "message": "Un import est déjà en cours pour ce batch"
+    },
+    "IMPORT_RUN_ABANDONED": {
+      "status": 409,
+      "message": "Cet import a été abandonné et ne peut pas être repris"
+    },
+    "INVALID_BATCH_STATE": {
+      "status": 409,
+      "message": "L'état du batch interdit cette opération"
+    },
+    "CAMPAIGN_MEMBERSHIP_LIMIT": {
+      "status": 409,
+      "message": "La campagne dépasse la limite de membres modifiables par appel"
+    },
+    "SYNC_REQUEST_NOT_FOUND": {
+      "status": 404,
+      "message": "La demande de synchronisation est introuvable"
+    },
+    "SYNC_REQUEST_NOT_OWNED": {
+      "status": 403,
+      "message": "Cette demande appartient à une autre clé"
+    },
+    "SYNC_CLAIM_EXPIRED": {
+      "status": 409,
+      "message": "Le bail de cette synchronisation a expiré"
+    },
+    "INVALID_SYNC_REQUEST_STATE": {
+      "status": 409,
+      "message": "L'état de la synchronisation interdit cette opération"
+    },
+    "UNSUPPORTED_CONTRACT_VERSION": {
+      "status": 400,
+      "message": "Cette version du contrat agent n'est pas prise en charge"
+    },
+    "INVALID_DOCUMENT": {
+      "status": 400,
+      "message": "Le document est invalide"
+    },
+    "INVALID_ICP_LINKS": {
+      "status": 400,
+      "message": "Les liens ICP sont invalides"
+    },
+    "REVISION_CONFLICT": {
+      "status": 409,
+      "message": "La révision attendue n'est plus courante"
+    },
+    "IDENTITY_CONFLICT": {
+      "status": 409,
+      "message": "Cette identité appartient déjà à un autre dossier ou contact"
+    },
+    "GOAL_CONFLICT": {
+      "status": 409,
+      "message": "La période ou la révision de l'objectif est en conflit"
+    },
+    "ATTRIBUTE_SCHEMA_INVALID": {
+      "status": 422,
+      "message": "Les attributs ne correspondent pas à la version du schéma"
+    },
+    "KIND_IMMUTABLE": {
+      "status": 409,
+      "message": "Le type d'un document ne peut pas changer"
+    },
+    "INVALID_STATUS": {
+      "status": 409,
+      "message": "Le statut du document interdit cette opération"
+    },
+    "PROVIDER_NOT_CONNECTED": {
+      "status": 409,
+      "message": "ColdIQ n’est pas connecté à cet espace"
+    },
+    "PROVIDER_UNAVAILABLE": {
+      "status": 502,
+      "message": "ColdIQ est momentanément indisponible"
+    },
+    "PROVIDER_RESPONSE_TOO_LARGE": {
+      "status": 502,
+      "message": "La réponse ColdIQ dépasse la limite autorisée"
+    },
+    "PROVIDER_PAYLOAD_TOO_LARGE": {
+      "status": 413,
+      "message": "La requête fournisseur dépasse la limite autorisée"
+    },
+    "SUMMARY_GENERATION_FAILED": {
+      "status": 500,
+      "message": "La génération du résumé a échoué"
+    },
+    "PRIVACY_ERASURE_REJECTED": {
+      "status": 403,
+      "message": "La demande d’effacement est refusée ou n’est plus valide"
+    },
+    "PRIVACY_ERASURE_FAILED": {
+      "status": 409,
+      "message": "L’effacement n’a pas pu être finalisé et peut être repris"
+    },
+    "PRIVACY_RESTORE_NOT_READY": {
+      "status": 503,
+      "message": "La restauration est en maintenance jusqu’à la reprise des effacements"
+    },
+    "INTERNAL_ERROR": {
+      "status": 500,
+      "message": "Une erreur interne est survenue"
+    }
+  },
+  "operations": [
+    {
+      "operationId": "agentHandshake",
+      "method": "POST",
+      "path": "/api/v1/agent/handshake",
+      "summary": "Vérifier l'agent, la clé et le contrat",
+      "scope": "authenticated",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "agentName": "Hermès",
+        "agentVersion": "2.0.0",
+        "originProvider": "instantly",
+        "contractVersion": "v1",
+        "correlationId": "startup-1"
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "appendCaseScore",
+      "method": "POST",
+      "path": "/api/v1/scores",
+      "summary": "appendCaseScore",
+      "scope": "scores",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "caseId": "case-1",
+        "model": "intent",
+        "modelVersion": "v1",
+        "value": 0.8,
+        "reasons": [
+          "Permit granted"
+        ],
+        "evidenceIds": [],
+        "observedAtUtc": 100,
+        "atUtc": 100
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "appendCaseScoreChunk",
+      "method": "POST",
+      "path": "/api/v1/scores/chunks",
+      "summary": "appendCaseScoreChunk",
+      "scope": "scores",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "offset": 0,
+        "items": [
+          {
+            "caseId": "case-1",
+            "model": "intent",
+            "modelVersion": "v1",
+            "value": 0.8,
+            "reasons": [
+              "Permit granted"
+            ],
+            "evidenceIds": [],
+            "observedAtUtc": 100,
+            "atUtc": 100
+          }
+        ]
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "appendEvidence",
+      "method": "POST",
+      "path": "/api/v1/evidence",
+      "summary": "appendEvidence",
+      "scope": "signals",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "caseId": "case-1",
+        "provider": "registry",
+        "reference": "https://example.com/permit",
+        "observedAtUtc": 100,
+        "atUtc": 100
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "appendEvidenceChunk",
+      "method": "POST",
+      "path": "/api/v1/evidence/chunks",
+      "summary": "appendEvidenceChunk",
+      "scope": "signals",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "offset": 0,
+        "items": [
+          {
+            "caseId": "case-1",
+            "provider": "registry",
+            "reference": "https://example.com/permit",
+            "observedAtUtc": 100,
+            "atUtc": 100
+          }
+        ]
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "appendGoal",
+      "method": "POST",
+      "path": "/api/v1/goals",
+      "summary": "appendGoal",
+      "scope": "reports",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "campaignId": "campaign-1",
+        "startAtUtc": 100,
+        "endAtUtc": 200,
+        "positiveResponseRate": 0.1,
+        "atUtc": 100
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "appendScoreObservations",
+      "method": "POST",
+      "path": "/api/v1/scoring/observations",
+      "summary": "Ajouter des observations de scoring",
+      "scope": "prospects",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "score-1",
+        "idempotencyKey": "score-1",
+        "observations": [
+          {
+            "prospectExternalId": "lead-42",
+            "externalEventKey": "form:42",
+            "factorKey": "form_completed",
+            "value": true,
+            "confidence": 1,
+            "evidence": "Formulaire qualifiant validé",
+            "sourceSystem": "tally",
+            "observedAtUtc": 1800000000000,
+            "actionIdentity": "form-submission-42"
+          }
+        ]
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "appendSignal",
+      "method": "POST",
+      "path": "/api/v1/signals",
+      "summary": "appendSignal",
+      "scope": "signals",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "caseId": "case-1",
+        "provider": "registry",
+        "type": "permit",
+        "category": "project",
+        "label": "Permit granted",
+        "observedAtUtc": 100,
+        "confidence": 0.9,
+        "evidenceIds": [],
+        "atUtc": 100
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "appendSignalChunk",
+      "method": "POST",
+      "path": "/api/v1/signals/chunks",
+      "summary": "appendSignalChunk",
+      "scope": "signals",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "offset": 0,
+        "items": [
+          {
+            "caseId": "case-1",
+            "provider": "registry",
+            "type": "permit",
+            "category": "project",
+            "label": "Permit granted",
+            "observedAtUtc": 100,
+            "confidence": 0.9,
+            "evidenceIds": [],
+            "atUtc": 100
+          }
+        ]
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "appendSourcingRun",
+      "method": "POST",
+      "path": "/api/v1/sourcing-runs",
+      "summary": "appendSourcingRun",
+      "scope": "import",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "provider": "registry",
+        "externalId": "run-1",
+        "sourceMetadata": {},
+        "atUtc": 100
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "archiveBatch",
+      "method": "POST",
+      "path": "/api/v1/batches/{publicId}/archive",
+      "summary": "Archiver une liste",
+      "scope": "import",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "archive-list-1",
+        "idempotencyKey": "archive-list-1"
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^BAT-[0-9]{4}-[0-9]{4,}$"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "archiveCampaign",
+      "method": "POST",
+      "path": "/api/v1/campaigns/{externalId}/archive",
+      "summary": "Archiver une campagne",
+      "scope": "prospects",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "archive-campaign-1",
+        "idempotencyKey": "archive-campaign-1"
+      },
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "archiveCase",
+      "method": "POST",
+      "path": "/api/v1/cases/{publicId}/archive",
+      "summary": "archiveCase",
+      "scope": "cases",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "expectedRevision": 2,
+        "atUtc": 102
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "archiveProspect",
+      "method": "POST",
+      "path": "/api/v1/prospects/{externalId}/archive",
+      "summary": "Archiver un prospect",
+      "scope": "prospects",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "archive-prospect-1",
+        "idempotencyKey": "archive-prospect-1"
+      },
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "checkEvents",
+      "method": "POST",
+      "path": "/api/v1/events/check",
+      "summary": "Identifier les événements manquants",
+      "scope": "events",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "check-1",
+        "idempotencyKey": "check-1",
+        "eventKeys": [
+          "instantly:reply:42"
+        ]
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "checkpointSourcingRun",
+      "method": "POST",
+      "path": "/api/v1/sourcing-runs/{publicId}/checkpoint",
+      "summary": "checkpointSourcingRun",
+      "scope": "import",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "cursor": "page-1",
+        "offset": 50,
+        "expectedOffset": 0,
+        "atUtc": 102
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "claimSyncRequest",
+      "method": "POST",
+      "path": "/api/v1/sync/requests/{publicId}/claim",
+      "summary": "Réclamer une demande de synchronisation",
+      "scope": "reconcile",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "correlationId": "sync-claim-1"
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 160
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "coldIqCompanySearch",
+      "method": "POST",
+      "path": "/api/v1/providers/coldiq/companies/search",
+      "summary": "Rechercher des entreprises avec ColdIQ",
+      "scope": "providers",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "countries": [
+          "FR"
+        ],
+        "industries": [
+          "construction"
+        ],
+        "limit": 25
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "413",
+        "502",
+        "503"
+      ]
+    },
+    {
+      "operationId": "coldIqEmailVerify",
+      "method": "POST",
+      "path": "/api/v1/providers/coldiq/emails/verify",
+      "summary": "Vérifier un e-mail avec ColdIQ",
+      "scope": "providers",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "email": "lea@example.fr"
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "413",
+        "502",
+        "503"
+      ]
+    },
+    {
+      "operationId": "coldIqPersonEnrich",
+      "method": "POST",
+      "path": "/api/v1/providers/coldiq/people/enrich",
+      "summary": "Enrichir une personne avec ColdIQ",
+      "scope": "providers",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "email": "lea@example.fr",
+        "max_credits": 5
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "413",
+        "502",
+        "503"
+      ]
+    },
+    {
+      "operationId": "coldIqSignalSearch",
+      "method": "POST",
+      "path": "/api/v1/providers/coldiq/signals/search",
+      "summary": "Rechercher des signaux avec ColdIQ",
+      "scope": "providers",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "signal_type": "intent",
+        "topics": [
+          "renovation"
+        ],
+        "countries": [
+          "FR"
+        ],
+        "limit": 25
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "413",
+        "502",
+        "503"
+      ]
+    },
+    {
+      "operationId": "commentDocument",
+      "method": "POST",
+      "path": "/api/v1/documents/{publicId}/comments",
+      "summary": "Commenter une révision",
+      "scope": "documents",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "revision": 1,
+        "body": "Préciser le secteur prioritaire.",
+        "schemaVersion": "1.0",
+        "correlationId": "documents-example",
+        "idempotencyKey": "documents-DocumentCommentWrite"
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "completeSyncRequest",
+      "method": "POST",
+      "path": "/api/v1/sync/requests/{publicId}/complete",
+      "summary": "Terminer une synchronisation",
+      "scope": "reconcile",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "executionId": "claim_abc",
+        "correlationId": "sync-1",
+        "result": "completed",
+        "totals": {
+          "prospects": 120
+        }
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 160
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "confirmPrivacyErasure",
+      "method": "POST",
+      "path": "/api/v1/privacy/erasures/{requestId}/confirm",
+      "summary": "Confirmer explicitement un effacement",
+      "scope": "privacy",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 16384,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-privacy-confirm-1",
+        "idempotencyKey": "privacy-confirm-1",
+        "confirmationSecret": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "expectedRevision": 1,
+        "confirmed": true,
+        "confirmedAtUtc": 1800000000000
+      },
+      "parameters": [
+        {
+          "name": "requestId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "202",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "createBatch",
+      "method": "POST",
+      "path": "/api/v1/batches",
+      "summary": "Créer une liste de sourcing",
+      "scope": "import",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "list-1",
+        "idempotencyKey": "list-1",
+        "source": {
+          "name": "Cold IQ",
+          "kind": "scraping"
+        },
+        "segment": {
+          "name": "Dirigeants BTP"
+        },
+        "hypothesis": "Partenariat local"
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "201",
+        "400",
+        "401",
+        "403",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "failSyncRequest",
+      "method": "POST",
+      "path": "/api/v1/sync/requests/{publicId}/fail",
+      "summary": "Signaler l'échec d'une synchronisation",
+      "scope": "reconcile",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "executionId": "claim_abc",
+        "correlationId": "sync-1",
+        "errorCode": "UPSTREAM_TIMEOUT",
+        "errorMessage": "Fournisseur indisponible"
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 160
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "finalizeBatch",
+      "method": "POST",
+      "path": "/api/v1/batches/{publicId}/finalize",
+      "summary": "Finaliser une liste",
+      "scope": "import",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "finalize-1",
+        "idempotencyKey": "finalize-1"
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^BAT-[0-9]{4}-[0-9]{4,}$"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getBatch",
+      "method": "GET",
+      "path": "/api/v1/batches/{publicId}",
+      "summary": "Lire une liste de sourcing",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^BAT-[0-9]{4}-[0-9]{4,}$"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getCampaign",
+      "method": "GET",
+      "path": "/api/v1/campaigns/{externalId}",
+      "summary": "Lire une campagne",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getCase",
+      "method": "GET",
+      "path": "/api/v1/cases/{publicId}",
+      "summary": "getCase",
+      "scope": "cases",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getCaseScore",
+      "method": "GET",
+      "path": "/api/v1/scores/{publicId}",
+      "summary": "getCaseScore",
+      "scope": "scores",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getCurrentCaseScore",
+      "method": "GET",
+      "path": "/api/v1/scores/current",
+      "summary": "getCurrentCaseScore",
+      "scope": "scores",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "caseId",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "model",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getDocument",
+      "method": "GET",
+      "path": "/api/v1/documents/{publicId}",
+      "summary": "Lire un document",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          }
+        },
+        {
+          "name": "revision",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getEvidence",
+      "method": "GET",
+      "path": "/api/v1/evidence/{publicId}",
+      "summary": "getEvidence",
+      "scope": "signals",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getGoal",
+      "method": "GET",
+      "path": "/api/v1/goals/{publicId}",
+      "summary": "getGoal",
+      "scope": "reports",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getOpenApi",
+      "method": "GET",
+      "path": "/api/v1/openapi.json",
+      "summary": "Télécharger le contrat OpenAPI canonique",
+      "scope": "public",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [],
+      "responseStatuses": [
+        "200"
+      ]
+    },
+    {
+      "operationId": "getPrivacyErasureStatus",
+      "method": "GET",
+      "path": "/api/v1/privacy/erasures/jobs/{jobId}",
+      "summary": "Lire l’état sûr d’un effacement",
+      "scope": "privacy",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "jobId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getProspect",
+      "method": "GET",
+      "path": "/api/v1/prospects/{externalId}",
+      "summary": "Lire un prospect",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getProspectScore",
+      "method": "GET",
+      "path": "/api/v1/prospects/{externalId}/score",
+      "summary": "Lire le score explicable d'un prospect",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getSignal",
+      "method": "GET",
+      "path": "/api/v1/signals/{publicId}",
+      "summary": "getSignal",
+      "scope": "signals",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getSourcingRun",
+      "method": "GET",
+      "path": "/api/v1/sourcing-runs/{publicId}",
+      "summary": "getSourcingRun",
+      "scope": "import",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getSummary",
+      "method": "GET",
+      "path": "/api/v1/reports/summaries/{publicId}",
+      "summary": "Lire un résumé immuable",
+      "scope": "reports",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "getSyncStatus",
+      "method": "GET",
+      "path": "/api/v1/sync/status",
+      "summary": "Lire l'état et l'historique des synchronisations",
+      "scope": "reconcile",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 20
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "503"
+      ]
+    },
+    {
+      "operationId": "importBatchLeads",
+      "method": "POST",
+      "path": "/api/v1/batches/{publicId}/leads",
+      "summary": "Importer les prospects d'une liste",
+      "scope": "import",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "import-1",
+        "idempotencyKey": "import-1",
+        "leads": [
+          {
+            "externalId": "lead-42",
+            "firstName": "Léa",
+            "lastName": "Martin",
+            "companyName": "Bâtir",
+            "qualificationDescription": "ICP exact",
+            "qualificationScore": 90,
+            "qualificationRationale": "Direction BTP",
+            "sourceReference": "cold-iq:42"
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^BAT-[0-9]{4}-[0-9]{4,}$"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "linkCaseContact",
+      "method": "POST",
+      "path": "/api/v1/cases/{publicId}/contacts",
+      "summary": "linkCaseContact",
+      "scope": "cases",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "leadId": "lead-1",
+        "role": "owner",
+        "active": true,
+        "atUtc": 101
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listBatches",
+      "method": "GET",
+      "path": "/api/v1/batches",
+      "summary": "Lister les listes de sourcing",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "includeArchived",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "source",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "segment",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "campaign",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listBatchValidationItems",
+      "method": "GET",
+      "path": "/api/v1/batches/{publicId}/validation-items",
+      "summary": "Lister les anomalies d'une liste",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^BAT-[0-9]{4}-[0-9]{4,}$"
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listCampaigns",
+      "method": "GET",
+      "path": "/api/v1/campaigns",
+      "summary": "Lister les campagnes",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "includeArchived",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "source",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "segment",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "batch",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listCaseContacts",
+      "method": "GET",
+      "path": "/api/v1/cases/{publicId}/contacts",
+      "summary": "listCaseContacts",
+      "scope": "cases",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8640000000000000
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listCases",
+      "method": "GET",
+      "path": "/api/v1/cases",
+      "summary": "listCases",
+      "scope": "cases",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8640000000000000
+          }
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "PAUSED",
+              "CLOSED",
+              "ARCHIVED"
+            ]
+          }
+        },
+        {
+          "name": "source",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listCaseScore",
+      "method": "GET",
+      "path": "/api/v1/scores",
+      "summary": "listCaseScore",
+      "scope": "scores",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8640000000000000
+          }
+        },
+        {
+          "name": "caseId",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "model",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listDocuments",
+      "method": "GET",
+      "path": "/api/v1/documents",
+      "summary": "Lister les documents",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "default": 20
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        {
+          "name": "kind",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "icp",
+              "persona",
+              "sequence",
+              "strategy",
+              "other"
+            ]
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listDocumentVersions",
+      "method": "GET",
+      "path": "/api/v1/documents/{publicId}/versions",
+      "summary": "Historique paginé des révisions",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 10
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listEvidence",
+      "method": "GET",
+      "path": "/api/v1/evidence",
+      "summary": "listEvidence",
+      "scope": "signals",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8640000000000000
+          }
+        },
+        {
+          "name": "caseId",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "provider",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listGoal",
+      "method": "GET",
+      "path": "/api/v1/goals",
+      "summary": "listGoal",
+      "scope": "reports",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8640000000000000
+          }
+        },
+        {
+          "name": "campaignId",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "SUPERSEDED"
+            ]
+          }
+        },
+        {
+          "name": "startAtUtc",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8640000000000000
+          }
+        },
+        {
+          "name": "endAtUtc",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8640000000000000
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listProspectEvents",
+      "method": "GET",
+      "path": "/api/v1/prospects/{externalId}/events",
+      "summary": "Lister les événements d'un prospect",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        },
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listProspects",
+      "method": "GET",
+      "path": "/api/v1/prospects",
+      "summary": "Lister les prospects",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "includeArchived",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "source",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "segment",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "batch",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "campaign",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listSegments",
+      "method": "GET",
+      "path": "/api/v1/dimensions/segments",
+      "summary": "Lister les segments",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "includeArchived",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listSignal",
+      "method": "GET",
+      "path": "/api/v1/signals",
+      "summary": "listSignal",
+      "scope": "signals",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8640000000000000
+          }
+        },
+        {
+          "name": "caseId",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "campaignId",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "sourceId",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "listId",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "type",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "EXPIRED"
+            ]
+          }
+        },
+        {
+          "name": "provider",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listSources",
+      "method": "GET",
+      "path": "/api/v1/dimensions/sources",
+      "summary": "Lister les sources",
+      "scope": "read",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 50
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "includeArchived",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listSourcingRun",
+      "method": "GET",
+      "path": "/api/v1/sourcing-runs",
+      "summary": "listSourcingRun",
+      "scope": "import",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8640000000000000
+          }
+        },
+        {
+          "name": "campaignId",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "sourceId",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "provider",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "RUNNING",
+              "COMPLETE",
+              "PARTIAL",
+              "FAILED"
+            ]
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "listSummaries",
+      "method": "GET",
+      "path": "/api/v1/reports/summaries",
+      "summary": "Lister les résumés immuables",
+      "scope": "reports",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "limit",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        {
+          "name": "cursor",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          }
+        },
+        {
+          "name": "period",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "7d",
+              "30d",
+              "90d",
+              "custom"
+            ]
+          }
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "READY",
+              "FAILED",
+              "SKIPPED"
+            ]
+          }
+        },
+        {
+          "name": "modifiedSince",
+          "in": "query",
+          "required": false,
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8640000000000000
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "nextSyncRequest",
+      "method": "GET",
+      "path": "/api/v1/sync/requests/next",
+      "summary": "Lire la prochaine demande de synchronisation",
+      "scope": "reconcile",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "204",
+        "401",
+        "403",
+        "503"
+      ]
+    },
+    {
+      "operationId": "progressSyncRequest",
+      "method": "POST",
+      "path": "/api/v1/sync/requests/{publicId}/progress",
+      "summary": "Publier la progression d'une synchronisation",
+      "scope": "reconcile",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "executionId": "claim_abc",
+        "correlationId": "sync-1",
+        "progress": 50
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 160
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "publishBatch",
+      "method": "POST",
+      "path": "/api/v1/batches/{publicId}/publish",
+      "summary": "Publier une liste",
+      "scope": "import",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "publish-1",
+        "idempotencyKey": "publish-1"
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^BAT-[0-9]{4}-[0-9]{4,}$"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "recordEvents",
+      "method": "POST",
+      "path": "/api/v1/events",
+      "summary": "Enregistrer des faits externes immuables",
+      "scope": "events",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "events-1",
+        "idempotencyKey": "events-1",
+        "events": [
+          {
+            "eventKey": "instantly:reply:42",
+            "eventType": "email.reply_received",
+            "occurredAtUtc": 1800000000000,
+            "sourceSystem": "instantly",
+            "lead": {
+              "externalId": "lead-42"
+            },
+            "metadata": {}
+          }
+        ]
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "202",
+        "400",
+        "401",
+        "403",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "recordSummaryReceipt",
+      "method": "POST",
+      "path": "/api/v1/reports/summaries/{publicId}/receipts",
+      "summary": "Enregistrer le résultat d'une livraison réalisée par l'agent",
+      "scope": "reports",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 65536,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-report-1",
+        "idempotencyKey": "delivery-report-1",
+        "channel": "telegram",
+        "deliveredAtUtc": 1789555200000,
+        "externalDeliveryId": "message-123",
+        "status": "delivered"
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "replaceCampaign",
+      "method": "PUT",
+      "path": "/api/v1/campaigns/{externalId}",
+      "summary": "Remplacer les faits externes d'une campagne",
+      "scope": "prospects",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "campaign-1",
+        "idempotencyKey": "campaign-1",
+        "name": "Artisans IDF",
+        "status": "active",
+        "channel": "email",
+        "prospectExternalIds": [
+          "lead-42"
+        ],
+        "externalModifiedAtUtc": 1800000000000
+      },
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "replaceProspect",
+      "method": "PUT",
+      "path": "/api/v1/prospects/{externalId}",
+      "summary": "Remplacer les faits externes d'un prospect",
+      "scope": "prospects",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "prospect-1",
+        "idempotencyKey": "prospect-1",
+        "firstName": "Léa",
+        "lastName": "Martin",
+        "companyName": "Bâtir",
+        "batchExternalId": "BAT-2026-0001",
+        "externalModifiedAtUtc": 1800000000000
+      },
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "requestPrivacyErasure",
+      "method": "POST",
+      "path": "/api/v1/privacy/erasures",
+      "summary": "Demander un effacement et obtenir un secret de confirmation",
+      "scope": "privacy",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 16384,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-privacy-request-1",
+        "idempotencyKey": "privacy-request-1",
+        "requestedAtUtc": 1800000000000,
+        "subject": {
+          "kind": "email",
+          "value": "person@example.com"
+        }
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "201",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "requestSummary",
+      "method": "POST",
+      "path": "/api/v1/reports/summaries",
+      "summary": "Créer un résumé depuis les derniers snapshots vérifiés",
+      "scope": "reports",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 65536,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-report-1",
+        "idempotencyKey": "report-1",
+        "externalRunId": "weekly-2026-09-16",
+        "templateVersion": "executive-v1",
+        "freshnessPolicy": "skip_stale",
+        "period": "7d"
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "resolveCaseIdentity",
+      "method": "GET",
+      "path": "/api/v1/cases/resolve",
+      "summary": "resolveCaseIdentity",
+      "scope": "cases",
+      "hasBody": false,
+      "requiredBody": false,
+      "maxBodyBytes": null,
+      "requestExample": null,
+      "parameters": [
+        {
+          "name": "provider",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        },
+        {
+          "name": "externalId",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "\\S"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "restoreBatch",
+      "method": "POST",
+      "path": "/api/v1/batches/{publicId}/restore",
+      "summary": "Restaurer une liste",
+      "scope": "import",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "restore-list-1",
+        "idempotencyKey": "restore-list-1"
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^BAT-[0-9]{4}-[0-9]{4,}$"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "restoreCampaign",
+      "method": "POST",
+      "path": "/api/v1/campaigns/{externalId}/restore",
+      "summary": "Restaurer une campagne",
+      "scope": "prospects",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "restore-campaign-1",
+        "idempotencyKey": "restore-campaign-1"
+      },
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "restoreCase",
+      "method": "POST",
+      "path": "/api/v1/cases/{publicId}/restore",
+      "summary": "restoreCase",
+      "scope": "cases",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "expectedRevision": 3,
+        "atUtc": 103
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "restoreProspect",
+      "method": "POST",
+      "path": "/api/v1/prospects/{externalId}/restore",
+      "summary": "Restaurer un prospect",
+      "scope": "prospects",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "restore-prospect-1",
+        "idempotencyKey": "restore-prospect-1"
+      },
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "retrySummary",
+      "method": "POST",
+      "path": "/api/v1/reports/summaries/{publicId}/retry",
+      "summary": "Relancer explicitement un résumé en échec",
+      "scope": "reports",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 65536,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-report-1",
+        "idempotencyKey": "retry-report-1"
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "reviewCaseDuplicate",
+      "method": "POST",
+      "path": "/api/v1/cases/{publicId}/duplicate-candidates",
+      "summary": "reviewCaseDuplicate",
+      "scope": "cases",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "candidateCaseId": "case-2",
+        "confidence": 0.8,
+        "reason": "Similar address",
+        "detectorId": "company-similarity",
+        "detectorRevision": "v1",
+        "atUtc": 101
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "saveDocument",
+      "method": "PUT",
+      "path": "/api/v1/documents/{publicId}",
+      "summary": "Créer une révision brouillon",
+      "scope": "documents",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "kind": "icp",
+        "title": "Dirigeant rénovation",
+        "body": "## Cible\n\nDécideur d’une **PME**",
+        "icpIds": [
+          "550e8400-e29b-41d4-a716-446655440000"
+        ],
+        "variants": [],
+        "expectedRevision": 0,
+        "schemaVersion": "1.0",
+        "correlationId": "documents-example",
+        "idempotencyKey": "documents-DocumentSave"
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "submitDocument",
+      "method": "POST",
+      "path": "/api/v1/documents/{publicId}/submit",
+      "summary": "Soumettre une révision",
+      "scope": "documents",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "expectedRevision": 1,
+        "schemaVersion": "1.0",
+        "correlationId": "documents-example",
+        "idempotencyKey": "documents-DocumentSubmit"
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "transitionCase",
+      "method": "POST",
+      "path": "/api/v1/cases/{publicId}/transition",
+      "summary": "transitionCase",
+      "scope": "cases",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "status": "CLOSED",
+        "expectedRevision": 1,
+        "atUtc": 101
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "transitionSourcingRun",
+      "method": "POST",
+      "path": "/api/v1/sourcing-runs/{publicId}/transition",
+      "summary": "transitionSourcingRun",
+      "scope": "import",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "status": "RUNNING",
+        "atUtc": 101
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "updateCampaign",
+      "method": "PATCH",
+      "path": "/api/v1/campaigns/{externalId}",
+      "summary": "Modifier les faits externes d'une campagne",
+      "scope": "prospects",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "campaign-2",
+        "idempotencyKey": "campaign-2",
+        "externalModifiedAtUtc": 1800000001000
+      },
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "updateCase",
+      "method": "PUT",
+      "path": "/api/v1/cases/{publicId}",
+      "summary": "updateCase",
+      "scope": "cases",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "title": "Updated project",
+        "expectedRevision": 1,
+        "atUtc": 101
+      },
+      "parameters": [
+        {
+          "name": "publicId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "updateProspect",
+      "method": "PATCH",
+      "path": "/api/v1/prospects/{externalId}",
+      "summary": "Modifier les faits externes d'un prospect",
+      "scope": "prospects",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": null,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "prospect-2",
+        "idempotencyKey": "prospect-2",
+        "externalModifiedAtUtc": 1800000001000
+      },
+      "parameters": [
+        {
+          "name": "externalId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "maxLength": 256
+          }
+        }
+      ],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "503"
+      ]
+    },
+    {
+      "operationId": "upsertCase",
+      "method": "POST",
+      "path": "/api/v1/cases",
+      "summary": "upsertCase",
+      "scope": "cases",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "provider": "registry",
+        "externalId": "case-1",
+        "title": "Building project",
+        "atUtc": 100
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    },
+    {
+      "operationId": "upsertCasesChunk",
+      "method": "POST",
+      "path": "/api/v1/cases/chunks",
+      "summary": "upsertCasesChunk",
+      "scope": "cases",
+      "hasBody": true,
+      "requiredBody": true,
+      "maxBodyBytes": 262144,
+      "requestExample": {
+        "schemaVersion": "1.0",
+        "correlationId": "corr-1",
+        "idempotencyKey": "write-1",
+        "offset": 0,
+        "items": [
+          {
+            "provider": "registry",
+            "externalId": "case-1",
+            "title": "Building project",
+            "atUtc": 100
+          }
+        ]
+      },
+      "parameters": [],
+      "responseStatuses": [
+        "200",
+        "400",
+        "401",
+        "403",
+        "404",
+        "409",
+        "413",
+        "500",
+        "503"
+      ]
+    }
+  ]
+}

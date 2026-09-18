@@ -1,0 +1,171 @@
+{
+  "schemaVersion": "1",
+  "version": "1.2.0",
+  "files": [
+    {
+      "path": "cli/client.mjs",
+      "bytes": 2250,
+      "sha256": "ef4172425d84b84d43bb3c3c49a96acecd8bce7174079697f1ae21a36d3983ef"
+    },
+    {
+      "path": "cli/contract.mjs",
+      "bytes": 1291,
+      "sha256": "2fada112798ee783c5d76ef8cedd584a758f71a2d94fc05fd37b55d53e0563bf"
+    },
+    {
+      "path": "cli/openapi.mjs",
+      "bytes": 9589,
+      "sha256": "3bf585960b10d5b2cbf8406efbc5091ab895dca70581059e75292bc40c622205"
+    },
+    {
+      "path": "cli/operations.generated.json",
+      "bytes": 91462,
+      "sha256": "70ddfd8a2b964ca934ef73c14b74e9ac679afc9e3b99c2c2ae6682cffaca7496"
+    },
+    {
+      "path": "cli/outreach.mjs",
+      "bytes": 10995,
+      "sha256": "b87acb2845fc6d7219eb611286b88daca7d298749e6dc1cfcb75bc6c80556f28"
+    },
+    {
+      "path": "cli/update.mjs",
+      "bytes": 10541,
+      "sha256": "c20bcb1f8f653471f7a64cf0076b422818bd3d308fa7d0f65fd624e0b8b844b8"
+    },
+    {
+      "path": "cli/version.mjs",
+      "bytes": 227,
+      "sha256": "91ac9baaab4233fe0ed51799f0449a35731dc7a7fc9e9a67e0fb286f0117c1fa"
+    },
+    {
+      "path": "contracts/release-manifest.json",
+      "bytes": 745,
+      "sha256": "f092d171f2a6d332c64cd38198675dedd71eac1cd4e90d92c9a3797773596191"
+    },
+    {
+      "path": "contracts/v1.json",
+      "bytes": 5014,
+      "sha256": "6bf71b1f41230d3b00f9d62aa5e9c27447cb30a78cedf4c99a86b6619053cbfc"
+    },
+    {
+      "path": "docs/cli-operations.generated.md",
+      "bytes": 13668,
+      "sha256": "88dde8618f9736f7d9381982ba4bf7f4201c05f4bf2820687973bb1ea60b8891"
+    },
+    {
+      "path": "docs/cli.md",
+      "bytes": 13111,
+      "sha256": "571178dee77d6e7d0140ece1e2dbb436d18e2476f8793c52fc0d5e008473abbc"
+    },
+    {
+      "path": "docs/document-authoring.md",
+      "bytes": 4633,
+      "sha256": "7da10987087f0d01c1c4e0d6d1396470763cb61037931814c151c49a2dd274dd"
+    },
+    {
+      "path": "docs/privacy-operations.md",
+      "bytes": 9626,
+      "sha256": "5af6d8a7516e717a54694875bceda1337349e8651c7b6a605debe36a083be237"
+    },
+    {
+      "path": "openapi/hermes-v1.json",
+      "bytes": 548568,
+      "sha256": "0a5517d474a1d6e1d8459c8103f819f4b4f593f174560e396260838e9c2b6bcb"
+    },
+    {
+      "path": "package.json",
+      "bytes": 263,
+      "sha256": "1d955934b8b34324178ceea5543775098a6ce76c78dd2e6034e925053706160c"
+    },
+    {
+      "path": "README.md",
+      "bytes": 871,
+      "sha256": "93fcbf90a798f2dd399fde23caa93aebef0eaadc87630d106827d10e330d670f"
+    },
+    {
+      "path": "skill/hermes-outreach/agents/openai.yaml",
+      "bytes": 202,
+      "sha256": "fb5ab606db9193f317e6bc79c95e5c4c428f13940b0270a7cd69b52eb5879673"
+    },
+    {
+      "path": "skill/hermes-outreach/references/api-operations.generated.md",
+      "bytes": 13668,
+      "sha256": "88dde8618f9736f7d9381982ba4bf7f4201c05f4bf2820687973bb1ea60b8891"
+    },
+    {
+      "path": "skill/hermes-outreach/references/api-operations.md",
+      "bytes": 4569,
+      "sha256": "a963bc0cc8c85e79fa2f1e6ea71fa2e48745ffc211db19797706c063f322834a"
+    },
+    {
+      "path": "skill/hermes-outreach/references/campaign-operations.md",
+      "bytes": 5684,
+      "sha256": "fbe2ff82fc6ba73a560e5bd2fe16737cfdf691b25212ccd419c65f34f5d6a5ec"
+    },
+    {
+      "path": "skill/hermes-outreach/references/coldiq.md",
+      "bytes": 2482,
+      "sha256": "a0e8a6c1218ad305b044fb1e7d426ff5c9b4a0b7056ff6d686a9e92f51b62b01"
+    },
+    {
+      "path": "skill/hermes-outreach/references/installation.md",
+      "bytes": 3769,
+      "sha256": "18796b4382bed5cc1710f1b65189983ccba993a68ba09ac8dbf1f0b59d7ded1d"
+    },
+    {
+      "path": "skill/hermes-outreach/references/provider-mapping.md",
+      "bytes": 2947,
+      "sha256": "1e746dbaf1fb2fe5c551057c2381b3d34a1694ff5007368b0bdd05e7a06280a5"
+    },
+    {
+      "path": "skill/hermes-outreach/references/runbooks.md",
+      "bytes": 7010,
+      "sha256": "00774f7b347584b2446bc075dae2a27261a51b9205a4db09bd193f1e72ff14c7"
+    },
+    {
+      "path": "skill/hermes-outreach/references/summaries.md",
+      "bytes": 1361,
+      "sha256": "7b828fd61aa87c3da781573d78458f2d31d9483321e9c0e4eb776455774a73b9"
+    },
+    {
+      "path": "skill/hermes-outreach/scripts/cron-plan.mjs",
+      "bytes": 2239,
+      "sha256": "b4f088fdcf9c4cd2b4a56f18a002245ffc51566cd712434862bf7841caf40b25"
+    },
+    {
+      "path": "skill/hermes-outreach/scripts/install-crons.mjs",
+      "bytes": 5227,
+      "sha256": "ec568e218ee478b5426d711b246c3df913cbb3d1be8fa80ab931955ed25548bb"
+    },
+    {
+      "path": "skill/hermes-outreach/scripts/outreach-heartbeat.sh",
+      "bytes": 472,
+      "sha256": "87547a511af14f46248487a8e263fc2842d2fee40047a74a01923c1a9cd709af"
+    },
+    {
+      "path": "skill/hermes-outreach/scripts/outreach-refresh-dispatcher.sh",
+      "bytes": 1137,
+      "sha256": "6a6598c927e676de14566d41b0f7c6fc6f4f0951ef903dd17ef994092c1a6e4c"
+    },
+    {
+      "path": "skill/hermes-outreach/scripts/preflight.sh",
+      "bytes": 2536,
+      "sha256": "8bc9e4822c6a5f4ffcea60ff67010fb18566bb63bb6ca064eccf10f347da1494"
+    },
+    {
+      "path": "skill/hermes-outreach/scripts/validate-config.mjs",
+      "bytes": 5375,
+      "sha256": "bd7fe4b15165724527746f60bb01fa99890475d064f8fd3c4ee3baa253830264"
+    },
+    {
+      "path": "skill/hermes-outreach/scripts/validate-crons.mjs",
+      "bytes": 2408,
+      "sha256": "d7efc7699ff4bdf871bc94b220774ca697736b75c75cce43af283192c3ae4557"
+    },
+    {
+      "path": "skill/hermes-outreach/SKILL.md",
+      "bytes": 5463,
+      "sha256": "e7cf13ea8bfa7be9f735e7ece21f5c19bc76558878e5c0dd4a108af08dc14307"
+    }
+  ]
+}

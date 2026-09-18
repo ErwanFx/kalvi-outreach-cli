@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hermes Outreach"
+  short_description: "Operate a client outreach data instance"
+  default_prompt: "Use $hermes-outreach to configure and verify this client instance safely."

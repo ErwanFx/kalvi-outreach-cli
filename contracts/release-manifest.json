@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1",
+  "contractVersion": "v1",
+  "supportedContractRange": {
+    "minimum": "v1",
+    "maximum": "v1"
+  },
+  "cliVersion": "1.2.0",
+  "openApiFingerprint": "sha256:f65a47c0d45522bc4c52322499487d06a6eaa137569ae9ceee6e402767313a04",
+  "skillRevision": "2026-09-16.1",
+  "documentationRevision": "2026-09-16.1",
+  "artifacts": {
+    "operationMetadata": "sha256:70ddfd8a2b964ca934ef73c14b74e9ac679afc9e3b99c2c2ae6682cffaca7496",
+    "publicReadme": "sha256:93fcbf90a798f2dd399fde23caa93aebef0eaadc87630d106827d10e330d670f",
+    "skillEntrypoint": "sha256:e7cf13ea8bfa7be9f735e7ece21f5c19bc76558878e5c0dd4a108af08dc14307",
+    "cliDocumentation": "sha256:571178dee77d6e7d0140ece1e2dbb436d18e2476f8793c52fc0d5e008473abbc"
+  }
+}
